@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -11,6 +12,8 @@ namespace CameraCaptureWithHAARCascade
         //Capture obj to capture the image/video from the system camera as its frames
         private Capture capture;
         //private bool captureInProgress;
+        private HaarCascade haar;           //the Viola-Jones detector
+        int totalFaces; 
 
         public CameraCapture()
         {
@@ -19,13 +22,30 @@ namespace CameraCaptureWithHAARCascade
 
         private void ProcessFrame(object sender, EventArgs e)
         {
-            /*In EMGUCV 3.0, Image is in the different directory--Emgu.CV.Mat
-             * Also QueryFrame() output the matrix, then need to
-             *  convert to the Image with the same generic types*/
-            //Image<Bgr, Byte> ImageFrame =  capture.QueryFrame(); 
-
             Image<Bgr, Byte> ImageFrame = capture.QueryFrame();
-                    CamImageBox.Image = ImageFrame;
+
+            #region
+            //convert the frame into grayscale after safely checking if it's non=null
+            if (ImageFrame  != null) 
+            {
+                Image<Gray, Byte> grayFrame = ImageFrame.Convert<Gray, Byte>();
+                //create the HAAR facial detector matrix based on 
+                //HAAR object, precision factor, min neighbor points in the detector path,
+                //HAAR detection type, and  choosen rectangle detector path
+                var facesDetected = grayFrame.DetectHaarCascade(haar, 1.5, 4,
+                    Emgu.CV.CvEnum.HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, 
+                    new Size(25, 25))[0];
+
+                //iterate through each points in the matrix to draw the path 
+                foreach (var face in facesDetected)
+                {
+                    Rectangle rect = face.rect;
+                    ImageFrame.Draw(rect, new Bgr(Color.Green), 3);
+                }    
+                CamImageBox.Image = ImageFrame; //display the image 
+                totalFaces = facesDetected.Length;
+            }
+            #endregion
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -38,7 +58,7 @@ namespace CameraCaptureWithHAARCascade
 
         private void cbCamIndex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //set the camera number to the one selected via combo 
+            //set the camera number to the one selected via comsbo 
          int camnumber = 0;
            camnumber = int.Parse(cbCamIndex.Text);
 
@@ -56,7 +76,9 @@ namespace CameraCaptureWithHAARCascade
 
             //start showing the stream from camera
             btnStart_Click(sender, e);
-            btnStart.Enabled = true;   //enable the button for pause/resumw
+            btnStart.Enabled = true;   //enable the button for pause/resume
+            //MessageBox.Show("The total faces: " + totalFaces.ToString());
+            totalFaceNum.Text = totalFaces.ToString();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -99,6 +121,17 @@ namespace CameraCaptureWithHAARCascade
             {
                 capture.Dispose();
             }
+        }
+
+        //load the HAAR cascade in the app interface
+        private void CameraCapture_Load(object sender, EventArgs e)
+        {
+            haar = new HaarCascade("haarcascade_frontalface_alt_tree.xml");
+        }
+
+        private void selectedCamera_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
