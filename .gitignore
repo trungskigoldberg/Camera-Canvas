@@ -3,3 +3,6 @@ bin/
 obj/
 .vs/
 .suo
+/CameraCaptureWithHAARCascade/CameraCaptureOriginal.resx
+/CameraCaptureWithHAARCascade/CameraCaptureOriginal.Designer.cs
+/CameraCaptureWithHAARCascade/CameraCaptureOriginal.cs

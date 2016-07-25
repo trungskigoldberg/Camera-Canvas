@@ -10,7 +10,8 @@ namespace CameraCaptureWithHAARCascade
     {
         //Capture obj to capture the image/video from the system camera as its frames
         private Capture capture;
-         
+        //private bool captureInProgress;
+
         public CameraCapture()
         {
             InitializeComponent();
@@ -22,37 +23,26 @@ namespace CameraCaptureWithHAARCascade
              * Also QueryFrame() output the matrix, then need to
              *  convert to the Image with the same generic types*/
             //Image<Bgr, Byte> ImageFrame =  capture.QueryFrame(); 
-            if (capture != null)
-            {
-                try
-                {
-                    Image<Bgr, Byte> ImageFrame = capture.QueryFrame().ToImage<Bgr, Byte>();
+
+            Image<Bgr, Byte> ImageFrame = capture.QueryFrame();
                     CamImageBox.Image = ImageFrame;
-                }
-                catch (NullReferenceException excpt)
-                {
-                    MessageBox.Show(excpt.Message);
-                }
-            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void caption_TextChanged(object sender, EventArgs e)
-        {
-            
+        { 
         }
 
         private void cbCamIndex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Set the camera number to the one selected via combo 
-            int camnumber = 0;
-            camnumber = int.Parse(cbCamIndex.Text);
+            //set the camera number to the one selected via combo 
+         int camnumber = 0;
+           camnumber = int.Parse(cbCamIndex.Text);
 
-            //Start the camera with the selected number 
+            //start the camera with the selected number 
             if (capture == null) {
                 try
                 {
@@ -64,35 +54,37 @@ namespace CameraCaptureWithHAARCascade
                 }
             }
 
-            //Start showing the stream from camera
-            btnStart_Click(sender, e); btnStart.Enabled = true;   //enable the button for pause/resumw
+            //start showing the stream from camera
+            btnStart_Click(sender, e);
+            btnStart.Enabled = true;   //enable the button for pause/resumw
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             #region if capture is not created, create it now
-            if (capture == null)
-            {
-                try
-                {
-                    capture = new Capture();
-                }
-                catch (NullReferenceException excpt)
-                {
-                    MessageBox.Show(excpt.Message);
-                }
-            }
+            //if (capture != null)
+            //{
+            //    //if the button is paused, then resume it 
+            //    if (btnStart.Text == "Pause")
+            //    {
+            //        btnStart.Text = "Resume";
+            //        Application.Idle -= ProcessFrame; //hold the capture 
+            //    }
+            //    else //otherwise, pause it 
+            //    {
+            //        btnStart.Text = "Pause";
+            //        Application.Idle += ProcessFrame;
+            //    }
+            //} 
             #endregion
-
-            else
-            {
-                //if the button is paused, then resume it 
+            if (capture != null)
+            { 
                 if (btnStart.Text == "Pause")
                 {
                     btnStart.Text = "Resume";
-                    Application.Idle -= ProcessFrame; //hold the capture 
+                    Application.Idle -= ProcessFrame;
                 }
-                else //otherwise, pause it 
+                else
                 {
                     btnStart.Text = "Pause";
                     Application.Idle += ProcessFrame;
@@ -105,7 +97,7 @@ namespace CameraCaptureWithHAARCascade
         {
             if (capture != null)
             {
-                capture.Dispose(); 
+                capture.Dispose();
             }
         }
     }

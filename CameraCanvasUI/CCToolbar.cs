@@ -49,6 +49,8 @@ namespace CameraCanvas
         public CCButton fileCCButton;
         public CCButton imageCCButton;
         public CCButton drawingCCButton;
+        //MARK: add a Camera Button
+        public CCButton cameraCCButton; 
         public CCButton settingsCCButton;
         public CCButton aboutCCButton;
 
@@ -560,12 +562,14 @@ namespace CameraCanvas
             fileCCButton = new Toolbox.FileCCButton(this);
             imageCCButton = new Toolbox.ImageCCButton(this);
             drawingCCButton = new Toolbox.DrawingCCButton(this);
+            cameraCCButton = new Toolbox.CameraCCButton(this);
             settingsCCButton = new Toolbar.SettingsCCButton(this);
             aboutCCButton = new Toolbox.AboutCCButton(this);
 
             mainMenuButtons.Add(fileCCButton);
             mainMenuButtons.Add(imageCCButton);
             mainMenuButtons.Add(drawingCCButton);
+            mainMenuButtons.Add(cameraCCButton);
             mainMenuButtons.Add(settingsCCButton);
             mainMenuButtons.Add(aboutCCButton);
 

@@ -37,6 +37,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,14 +52,20 @@
     <StartupObject>CameraCaptureWithHAARCascade.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Emgu.CV.DebuggerVisualizers.VS2015">
-      <HintPath>..\..\..\..\..\Emgu\emgucv-windesktop 3.1.0.2282\bin\Emgu.CV.DebuggerVisualizers.VS2015.dll</HintPath>
+    <Reference Include="Emgu.CV">
+      <HintPath>..\..\..\..\..\Emgu\libemgucv-windows-x64-2.2.1.1150\bin\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.GPU">
+      <HintPath>..\..\..\..\..\Emgu\libemgucv-windows-x64-2.2.1.1150\bin\Emgu.CV.GPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.ML">
+      <HintPath>..\..\..\..\..\Emgu\libemgucv-windows-x64-2.2.1.1150\bin\Emgu.CV.ML.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.UI">
-      <HintPath>..\..\..\..\..\Emgu\emgucv-windesktop 3.1.0.2282\bin\Emgu.CV.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\Emgu\libemgucv-windows-x64-2.2.1.1150\bin\Emgu.CV.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Emgu.CV.World">
-      <HintPath>..\..\..\..\..\Emgu\emgucv-windesktop 3.1.0.2282\bin\Emgu.CV.World.dll</HintPath>
+    <Reference Include="Emgu.Util">
+      <HintPath>..\..\..\..\..\Emgu\libemgucv-windows-x64-2.2.1.1150\bin\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +89,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="CameraCapture.resx">
+      <DependentUpon>CameraCapture.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

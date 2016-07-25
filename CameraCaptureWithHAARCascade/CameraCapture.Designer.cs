@@ -18,9 +18,9 @@
             this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
             this.cbCamIndex = new System.Windows.Forms.ComboBox();
-            this.selectCameraBox = new System.Windows.Forms.TextBox();
             this.captionText = new System.Windows.Forms.TextBox();
             this.CamImageBox = new Emgu.CV.UI.ImageBox();
+            this.selectedCamera = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CamImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -38,8 +38,8 @@
             // 
             this.cbCamIndex.FormattingEnabled = true;
             this.cbCamIndex.Items.AddRange(new object[] {
-            "0",
-            "1"});
+            "1",
+            "2"});
             this.cbCamIndex.Location = new System.Drawing.Point(641, 643);
             this.cbCamIndex.Name = "cbCamIndex";
             this.cbCamIndex.Size = new System.Drawing.Size(105, 28);
@@ -47,20 +47,11 @@
             this.cbCamIndex.Text = "NONE";
             this.cbCamIndex.SelectedIndexChanged += new System.EventHandler(this.cbCamIndex_SelectedIndexChanged);
             // 
-            // selectCameraBox
-            // 
-            this.selectCameraBox.Location = new System.Drawing.Point(472, 643);
-            this.selectCameraBox.Name = "selectCameraBox";
-            this.selectCameraBox.Size = new System.Drawing.Size(117, 26);
-            this.selectCameraBox.TabIndex = 4;
-            this.selectCameraBox.Text = "Select Camera:";
-            this.selectCameraBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
             // captionText
             // 
             this.captionText.BackColor = System.Drawing.SystemColors.HighlightText;
             this.captionText.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.captionText.Location = new System.Drawing.Point(12, 640);
+            this.captionText.Location = new System.Drawing.Point(12, 641);
             this.captionText.Name = "captionText";
             this.captionText.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.captionText.Size = new System.Drawing.Size(392, 29);
@@ -74,17 +65,28 @@
             this.CamImageBox.Location = new System.Drawing.Point(12, 12);
             this.CamImageBox.Name = "CamImageBox";
             this.CamImageBox.Size = new System.Drawing.Size(900, 600);
+            this.CamImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.CamImageBox.TabIndex = 2;
             this.CamImageBox.TabStop = false;
+            // 
+            // selectedCamera
+            // 
+            this.selectedCamera.AutoSize = true;
+            this.selectedCamera.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectedCamera.Location = new System.Drawing.Point(472, 645);
+            this.selectedCamera.Name = "selectedCamera";
+            this.selectedCamera.Size = new System.Drawing.Size(127, 25);
+            this.selectedCamera.TabIndex = 7;
+            this.selectedCamera.Text = "Select Camera:";
             // 
             // CameraCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(978, 694);
+            this.Controls.Add(this.selectedCamera);
             this.Controls.Add(this.CamImageBox);
             this.Controls.Add(this.captionText);
-            this.Controls.Add(this.selectCameraBox);
             this.Controls.Add(this.cbCamIndex);
             this.Controls.Add(this.btnStart);
             this.Name = "CameraCapture";
@@ -100,12 +102,11 @@
 
         //Combo Box to choose the number of cameras to capture
         private System.Windows.Forms.ComboBox cbCamIndex;
-
-        private System.Windows.Forms.TextBox selectCameraBox;
         private System.Windows.Forms.TextBox captionText;
 
         //access to the EMGU.CV.UI-type image box (quite in similarity to PictureBox of Windows.Forms)
         private Emgu.CV.UI.ImageBox CamImageBox;
+        private System.Windows.Forms.Label selectedCamera;
     }
 }
 
